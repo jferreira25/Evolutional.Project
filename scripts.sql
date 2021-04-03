@@ -1,3 +1,4 @@
+CREATE DATABASE [projeto-evolucional];
 USE [projeto-evolucional]
 GO
 
