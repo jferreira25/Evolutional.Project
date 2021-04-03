@@ -1,0 +1,89 @@
+<div class="mat-elevation-z8">
+    <mat-card>
+      <mat-card-title>Consultar Alunos e Notas</mat-card-title>
+  
+      <form [formGroup]="form" novalidate (submit)="filter()">
+  
+        <mat-card-content>
+          <div class="row margin-top-10">
+  
+            <div class="col-sm-12 col-md-12 col-lg-12">
+              <app-input label="nome" type="text" [control]="form.controls.name">
+              </app-input>
+            </div>
+  
+          </div>
+        </mat-card-content>
+  
+        <div class="row justify-content-end">
+          <div class="col-auto">
+            <button mat-raised-button type="button" (click)="download()" [disabled]="DisableDownload">
+              <mat-icon>file_download</mat-icon>
+              &nbsp;  Botão 2
+            </button>
+          </div>
+          <div class="col-auto">
+            <button mat-raised-button type="button" (click)="generate()">
+              <mat-icon>published_with_changes</mat-icon>
+              &nbsp;  Botão 1
+            </button>
+          </div>
+          <div class="col-auto">
+            <button mat-raised-button type="button" (click)="clearFilter()">
+              <mat-icon>clear</mat-icon>
+              &nbsp; Limpar
+            </button>
+          </div>
+          <div class="col-auto">
+            <button mat-raised-button class="button textButtons" type="submit">
+              Consultar&nbsp;
+              <mat-icon>search</mat-icon>
+            </button>
+          </div>
+        </div>
+  
+      </form>
+  
+    </mat-card>
+  </div>
+
+<div class="mat-elevation-z8 margin-top-10">
+
+    <mat-table [dataSource]="dsStudents">
+  
+      <ng-container matColumnDef="name">
+        <mat-header-cell mat-header-cell *matHeaderCellDef> Nome do Aluno </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.name }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="lessonName">
+        <mat-header-cell mat-header-cell *matHeaderCellDef> Matéria </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.lessonName }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="schoolGrades">
+        <mat-header-cell mat-header-cell *matHeaderCellDef> Nota </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.schoolGrades }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <mat-header-cell mat-header-cell *matHeaderCellDef> Opções </mat-header-cell>
+        <mat-cell *matCellDef="let element" (click)="openBottomSheet(element.id)" class="click">
+          <mat-icon>more_vert</mat-icon>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="['name','lessonName','schoolGrades','action']">
+      </mat-header-row>
+      <mat-row *matRowDef="let row; columns: ['name','lessonName','schoolGrades','action'];">
+      </mat-row>
+  
+    </mat-table>
+  
+    <mat-paginator [length]="totalRow" [pageSize]="form.controls.pageLength"
+    [pageSizeOptions]="[10, 25, 100, 200]" (page)="pageChangeEvent($event)"></mat-paginator>
+  </div>
+  
+  <button mat-fab  class="fab-float button" (click)="add()">
+    <mat-icon>add</mat-icon>
+  </button>
