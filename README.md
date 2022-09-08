@@ -24,3 +24,5 @@ Angular 8
 
 - executar comando **npm install** e após finalizado **npm start** pelo cmd ou ide(cmd) utilizo visual studio code , para o front end
 - ter instalado .net core/ visual studio 2019
+
+teste de branch
